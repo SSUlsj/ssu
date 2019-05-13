@@ -4,7 +4,7 @@ int main()
 {
 	char user[10];
 
-	printf("SOKOBAN GAME\n");
+	printf("소코반 게임\n");
 	printf("Insert your name : ");
 	do {
 		scanf("%s",&user);
