@@ -16,7 +16,7 @@ int main()
 
 	} while (strlen(user) >10);
 
-	printf("%s",user);
+	printf("   Hello %s",user);
 		
 	return 0;
 }
