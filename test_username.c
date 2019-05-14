@@ -4,13 +4,13 @@ int main()
 {
 	char user[10];
 
-	printf("소코반 게임\n");
-	printf("Insert your name : ");
+	printf("Start....\n");
+	printf("input name : ");
 	do {
 		scanf("%s",&user);
 		if (strlen(user) > 10) {
 			printf("Maximum name is 10 words.\n");
-			printf("Insert your name : ");
+			printf("input name : ");
 		}
 
 
