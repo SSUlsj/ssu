@@ -1,10 +1,8 @@
 #include <stdio.h>
 int main()
 {
-	FILE * map;
-	map = fopen("map5.txt","r");
+	FILE * map = fopen("map.txt","r");
 	char text;
-
 	if (map == NULL){
 		printf("불러올 파일이 없습니다.");
 	}
