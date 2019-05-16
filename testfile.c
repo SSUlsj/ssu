@@ -3,8 +3,7 @@
 
 void username()
 {
-    char user[10];
-
+    char user[10];	// 10자 까지만
     printf("소코반 게임\n");
     printf("Insert your name : ");
     do {
