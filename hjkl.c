@@ -28,26 +28,31 @@ void Player_Move_Action()
 	int y = 0;
 	while(1)
 	{
-
-		key = getch();
-		if(key ==0xE0 || key ==0)
+		if(key == -32)
+		{
 			key = getch();
 
-		switch(key)
-		{
-		case h: //왼쪽
-			x = 1;
-			break;
-		case j: //아래
-			y = -1;
-			break;
-		case k: //위
-			y = 1;
-			break;
-		case l: //오른쪽
-			x = -1;
-			break;
+			switch(key)
+			{
+			case h: //왼쪽
+				x = 1;
+				break;
+			case j: //아래
+				y = -1;
+				break;
+			case k: //위
+				y = 1;
+				break;
+			case l: //오른쪽
+				x = -1;
+				break;	
+			}
 		}
 	}
 }
-	
+
+int main()
+{
+	Player_Move_Action();
+	return 0;
+}	
