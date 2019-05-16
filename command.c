@@ -4,7 +4,7 @@ int main()
 {
 	int ch;
 
-	printf("(command)\n");
+	printf("(command) : ");
 
 	while(1){
 	ch=getch();
