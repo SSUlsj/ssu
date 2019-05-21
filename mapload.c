@@ -3,6 +3,7 @@ int main()
 {
 	int stage,x,y =  0;
 	int stage_y[5] = {0};
+	int box_count, chest_count = 0;
 	char map_pos[5][30][30] = {};
 	char text;
 	FILE * map = fopen("map.txt","r");
