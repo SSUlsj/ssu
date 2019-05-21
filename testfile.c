@@ -1,39 +1,46 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int stage, x, y = 0;
 int stage_y[5] = {0};
+int box_count, chest_count = 0;
+char map_pos[5][30][30] = {};
+char text;
+
+char user[10];
 
 void username();
 void mapload();
 
 void username()
 {
-    char user[10];	// 10자 까지만
-    printf("소코반 게임\n");
-    printf("Insert your name : ");
-    do {
+    char user[10];
+    printf("Start....\ninput name : ");
+name :
+    while (1){
         scanf("%s",&user);
         if (strlen(user) > 10) {
-            printf("Maximum name is 10 words.\n");
-            printf("Insert your name : ");
+            printf("Only English, and maximum name is 10 words.\n");
+            printf("input name : ");
+            continue;
         }
-
-
-    } while (strlen(user) >10);
-
+        for (int i = 0; i<strlen(user); i++){
+            if (((user[i]>='a')&&(user[i]<='z'))||((user[i]>='A')&&(user[i]<='Z')) ? 0 : 1){
+                printf("Only English, and maximum name is 10 words.\n");
+				printf("input name : ");
+                goto name;
+            }
+        }
+        break;
+    }
     printf("   Hello %s",user);
-
     return;
 }
 
+
 void mapload()
 {
-    int stage,x,y =  0;
-    int stage_y[5] = {0};
-    int box_count, chest_count = 0;
-    char map_pos[5][30][30] = {};
-    char text;
     FILE * map = fopen("map.txt","r");
     while (fscanf(map, "%c", &text) != EOF){
         if(text == '1'){
@@ -66,7 +73,9 @@ void mapload()
 
 int main()
 {
+	system("clear");
 	username();
 	mapload();
+
 	return 0;
 }
