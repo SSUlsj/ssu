@@ -17,10 +17,10 @@ int getch(void)
 	return ch;
 }
 
-#define h 75 // h : 왼쪽
-#define j 80 // j : 아래
-#define k 72 // k : 위
-#define l 77 // l : 오른쪽
+#define left 75 // h : 왼쪽
+#define down 80 // j : 아래
+#define up 72 // k : 위
+#define right 77 // l : 오른쪽
 void Player_Move_Action()
 {
 	char key;
@@ -31,19 +31,24 @@ void Player_Move_Action()
 		if(key == -32)
 		{
 			key = getch();
-
+			char h, j ,k l;
+			h = 75;
+			j = 80;
+			k = 72;
+			l = 77;
 			switch(key)
 			{
-			case h: //왼쪽
+
+			case 'h': //왼쪽
 				x = 1;
 				break;
-			case j: //아래
+			case 'j': //아래
 				y = -1;
 				break;
-			case k: //위
+			case 'k': //위
 				y = 1;
 				break;
-			case l: //오른쪽
+			case 'l': //오른쪽
 				x = -1;
 				break;	
 			}
