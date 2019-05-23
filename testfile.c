@@ -45,6 +45,7 @@ void testmove()
     int check=1;
     int input_char;
     int cnt=0;
+	int xmv, ymv = 0;
 
     system("clear\n");
 
@@ -56,23 +57,23 @@ void testmove()
         input_char = getch();
         switch(input_char){
             case 'h' :
-                map_pos[0][char_y][char_x-1]='@';
-                map_pos[0][char_y][char_x]='.';
+                xmv = -1;
+				ymv = 0;
                 cnt++;
                 break;
             case 'j' :
-                map_pos[0][char_y+1][char_x]='@';
-                map_pos[0][char_y][char_x]='.';
+				xmv = 0;
+				ymv = 1;
                 cnt++;
                 break;
             case 'k' :
-                map_pos[0][char_y-1][char_x]='@';
-                map_pos[0][char_y][char_x]='.';
+				xmv = 0;
+				ymv = -1;
                 cnt++;
                 break;
             case 'l' :
-                map_pos[0][char_y][char_x+1]='@';
-                map_pos[0][char_y][char_x]='.';
+				xmv = 1;
+				ymv = 0;
                 cnt++;
                 break;
             case 'r' :
@@ -85,6 +86,21 @@ void testmove()
                 break;
             default :
                 break;
+		}
+		if (map_pos[0][char_y+ymv][char_x+xmv] == '#')
+			;
+		else if (map_pos[0][char_y+ymv][char_x+xmv] == '$'){
+			if (map_pos[0][char_y+ymv*2][char_x+xmv*2] == '#')
+				;
+			else{
+				map_pos[0][char_y+ymv*2][char_x+xmv*2] = '$';
+				map_pos[0][char_y+ymv][char_x+xmv] = '@';
+				map_pos[0][char_y][char_x] = '.';
+			}
+		}
+		else{
+			map_pos[0][char_y+ymv][char_x+xmv] = '@';
+			map_pos[0][char_y][char_x] = '.';
 		}
         system("clear");
 		printf("Hello %s\n",user);
