@@ -1,18 +1,54 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <termio.h>
+void ranking();
+int getch()
+{
+        int ch;
+
+        struct termios buf;
+        struct termios save;
+
+        tcgetattr(0, &save);
+        buf = save;
+
+        buf.c_lflag&=~(ICANON|ECHO);
+        buf.c_cc[VMIN] = 1;
+        buf.c_cc[VTIME] = 0;
+
+        tcsetattr(0, TCSAFLUSH, &buf);
+
+        ch=getchar();
+        tcsetattr(0, TCSAFLUSH, &save);
+
+        return ch;
+}
+
 void main()
 {
-	short a[]={1,2,3,4,5} // 플레이어 기록으로 채우기
-	short i,j,temp;
+	int input_char;
+	input_char=getch();
+	if (input_char=='t')
+		ranking();
+}
 
-	for(i=0;i<=4;i++){
-		for(j=i+1;j<=4;j++){
-			if(a[i]>a[j]){
-				temp=a[i];
-				a[i]=a[j];
-				a[j]=temp;
+void ranking()
+{
+	int tmp;
+	short ranking[5]={13,21,13,42,5};
+	for(int i = 0; i<4; i++){
+		for(int i = 0; i<4; i++){
+			if(ranking[i] > ranking[i+1]){
+				tmp=ranking[i];
+				ranking[i]=ranking[i+1];
+				ranking[i+1]=tmp;
 			}
 		}
 	}
-	for(i=0;i<5;i++)printf(" %d",a[i]);
-	printf("\n");
+	for (int i=0; i<5; i++){
+		printf("%d",ranking[i]);
+		printf("\n");
+	}
 }
+
+

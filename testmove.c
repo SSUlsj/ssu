@@ -35,6 +35,7 @@ int getch()
 }
 
 void mapload();
+void mapclear();
 
 int main()
 {
@@ -86,8 +87,11 @@ int main()
 				cnt++;
 				break;
 			case 'r' :
+				map[y][x]=' ';
 				x=5;
 				y=3;
+				map[y][x]='@';
+				system("clear");
 				mapload();
 				cnt=0;
 				break;
@@ -112,4 +116,11 @@ void mapload(){
                         for(int a=0; a<10; a++)
                                 printf("%c",map[b][a]);
                 }
+}
+void mapclear(){
+	for(int b=0; b<7; b++){
+		printf("\n");
+		for(int a=0; a<10; a++)
+			printf(" ");
+	}
 }
