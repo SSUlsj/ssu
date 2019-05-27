@@ -8,6 +8,7 @@ int stage_y[5] = {0};
 int stage_x[5] = {0};
 int box_count, chest_count = 0;
 int char_x, char_y = 0;
+int chest_pos[5][30][30] = {};
 
 char map_pos[5][30][30] = {};
 char text;
@@ -15,7 +16,7 @@ char user[10];
 
 void username();
 int mapload();
-void testmove();
+void move();
 void mapprint();
 
 int getch()
@@ -40,7 +41,7 @@ int getch()
         return ch;
 }
 
-void testmove()
+void move()
 {
     int check=1;
     int input_char;
@@ -78,7 +79,7 @@ void testmove()
                 break;
             case 'r' :
                 mapload();
-                cnt=0;
+                cnt++;
                 break;
 
             case 'e' :
@@ -90,7 +91,7 @@ void testmove()
 		if (map_pos[0][char_y+ymv][char_x+xmv] == '#')
 			;
 		else if (map_pos[0][char_y+ymv][char_x+xmv] == '$'){
-			if (map_pos[0][char_y+ymv*2][char_x+xmv*2] == '#')
+			if ((map_pos[0][char_y+ymv*2][char_x+xmv*2] == '#') || (map_pos[0][char_y+ymv*2][char_x+xmv*2] == '$'))
 				;
 			else{
 				map_pos[0][char_y+ymv*2][char_x+xmv*2] = '$';
@@ -167,6 +168,7 @@ int mapload()
 		}
 		else if(text == 'O'){
 			map_pos[stage][y][x] = text;
+			chest_pos[stage][y][x] = text;
 			chest_count++;
 			x++;
 		}
@@ -203,7 +205,7 @@ int main()
 	username();
 	if (mapload() == 1)
 		return 0;
-	testmove();
+	move();
 	printf("See you %s",user);
 	return 0;
 }
