@@ -51,6 +51,7 @@ void testmove()
 
     while(check){
 		
+		printf("Hello %s\n",user);
         mapprint();
 		printf("Move Attempts : %d\n",cnt);
 
@@ -76,6 +77,18 @@ void testmove()
 				ymv = 0;
                 cnt++;
                 break;
+	    case 'd' :
+                system("clear");
+                printf("h(왼쪽),j(아래),k(위),l(오른쪽)\n");
+                printf("u(undo)\n");
+                printf("r(replay)\n");
+                printf("n(new)\n");
+                printf("e(exit)\n");
+                printf("f(file load)\n");
+                printf("d(display help)\n");
+                printf("t(top)\n");
+		break;
+
             case 'r' :
                 mapload();
                 cnt=0;
@@ -103,7 +116,6 @@ void testmove()
 			map_pos[0][char_y][char_x] = '.';
 		}
         system("clear");
-		printf("Hello %s\n",user);
     }
     printf("\n");
     return;
@@ -204,6 +216,6 @@ int main()
 	if (mapload() == 1)
 		return 0;
 	testmove();
-	printf("See you %s",user);
+	printf("S E E  Y O U  %s . . . .\n",user);
 	return 0;
 }
