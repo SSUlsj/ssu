@@ -217,12 +217,7 @@ int main()
 	username();
 	if (mapload() == 1)
 		return 0;
-<<<<<<< HEAD
 	move();
-	printf("See you %s",user);
-=======
-	testmove();
 	printf("S E E  Y O U  %s . . . .\n",user);
->>>>>>> c79daa0d017550ba2e0deb75862eab0f60c97860
 	return 0;
 }
