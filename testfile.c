@@ -181,13 +181,14 @@ int mapload()
 			y = -1;
 		}
 		else if((text >= '2')&&(text <= '5')){
-            stage_y[stage] = y+1;
+			stage_y[stage] = y+1;
             stage++;
             x = 0;
             y = -1;
         }
         else if(text == '\n'){
-            y++;
+            stage_x[stage] = x-1;
+			y++;
             x = 0;
         }
         else if(text == 'e'){
@@ -229,7 +230,7 @@ void mapprint()
 {
 	int y_pos, x_pos;
 	for (y_pos = 0; y_pos <= stage_y[stage_num]; y_pos++){
-		for (x_pos = 0; x_pos <= 30; x_pos++){
+		for (x_pos = 0; x_pos <= stage_x[stage_num]; x_pos++){
 			if (map_pos[stage_num][y_pos][x_pos] == '@'){
 				char_x = x_pos;
 				char_y = y_pos;
