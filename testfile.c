@@ -66,6 +66,7 @@ void move()
 		if (clear_check == clear_count[stage_num]){
 			stage_num++;
 			system("clear");
+			cnt = 0;
 			continue;
 		}
 
@@ -112,6 +113,8 @@ void move()
             case 'e' :
                 check=0;
                 break;
+			case 'u' :
+
             default :
                 system("clear");
 				continue;
