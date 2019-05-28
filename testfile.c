@@ -57,8 +57,9 @@ void move()
 
 
     while(check){
-		if (clear_check == clear_count[stage_num])
-        	stage_num++;
+		if (clear_check == clear_count[stage_num]){
+			stage_num++;
+		}
         clear_check = 0;
 		
 		xmv, ymv = 0;
