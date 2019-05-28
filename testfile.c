@@ -57,15 +57,18 @@ void move()
 
 
     while(check){
-		if (clear_check == clear_count[stage_num]){
-			stage_num++;
-		}
-        clear_check = 0;
 		
 		xmv, ymv = 0;
 
 		printf("Hello %s\n",user);
         mapprint();
+		
+		if (clear_check == clear_count[stage_num]){
+			stage_num++;
+			system("clear");
+			continue;
+		}
+
 		printf("Move Attempts : %d\n",cnt);
 
         input_char = getch();
@@ -128,6 +131,7 @@ void move()
 			map_pos[stage_num][char_y][char_x] = '.';
 			map_pos[stage_num][char_y+ymv][char_x+xmv] = '@';
 		}
+		clear_check = 0;
 		system("clear");
 	}
     return;
