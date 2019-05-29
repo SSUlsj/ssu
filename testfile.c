@@ -8,11 +8,11 @@ int y = -1;
 int stage_y[5] = {0};
 int stage_x[5] = {0};
 int stage_num = 0;
-int box_count, chest_count = 0;
-int clear_count[5] = {};
+int box_count[5], chest_count[5] = {0};
 int clear_check = 0;
 int char_x, char_y = 0;
 int chest_pos[5][30][30] = {};
+int undo = 5;
 
 char map_pos[5][30][30] = {};
 char text;
@@ -57,15 +57,15 @@ void move()
 
 
     while(check){
-		
-		xmv, ymv = 0;
+		xmv,ymv = 0;
 
 		printf("Hello %s\n",user);
         mapprint();
 		
-		if (clear_check == clear_count[stage_num]){
+		if (clear_check == chest_count[stage_num]){
 			stage_num++;
 			system("clear");
+			cnt = 0;
 			continue;
 		}
 
@@ -94,6 +94,7 @@ void move()
                 cnt++;
                 break;
 	    	case 'd' :
+				xmv, ymv = 0;
                 system("clear");
                 printf("h(왼쪽),j(아래),k(위),l(오른쪽)\n");
                 printf("u(undo)\n");
@@ -105,6 +106,7 @@ void move()
                 printf("t(top)\n");
 				continue;
             case 'r' :
+				xmv, ymv = 0;
                 mapload();
                 cnt++;
 				system("clear");
@@ -112,15 +114,17 @@ void move()
             case 'e' :
                 check=0;
                 break;
-            default :
+			case 'u' :
+            
+			default :
                 system("clear");
 				continue;
 		}
 		if (map_pos[stage_num][char_y+ymv][char_x+xmv] == '#')
-			;
+			cnt--;
 		else if (map_pos[stage_num][char_y+ymv][char_x+xmv] == '$'){
 			if ((map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] == '#') || (map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] == '$'))
-				;
+				cnt--;
 			else{
 				map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] = '$';
 				map_pos[stage_num][char_y+ymv][char_x+xmv] = '@';
@@ -164,6 +168,11 @@ name :
 
 int mapload()
 {
+	for (int i = 0; i <= 4; i++){
+		box_count[i] = 0;
+		chest_count[i] = 0;
+	}
+
     FILE * map = fopen("map.txt","r");
     while (fscanf(map, "%c", &text) != EOF){
         if(text == '1'){
@@ -171,14 +180,15 @@ int mapload()
 			x = 0;
 			y = -1;
 		}
-		else if((text >= '2') && (text <= '5')){
-            stage_y[stage] = y+1;
+		else if((text >= '2')&&(text <= '5')){
+			stage_y[stage] = y+1;
             stage++;
             x = 0;
             y = -1;
         }
         else if(text == '\n'){
-            y++;
+            stage_x[stage] = x-1;
+			y++;
             x = 0;
         }
         else if(text == 'e'){
@@ -191,14 +201,13 @@ int mapload()
 		}
 		else if(text == '$'){
 			map_pos[stage][y][x] = text;
-			box_count++;
+			box_count[stage]++;
 			x++;
 		}
 		else if(text == 'O'){
 			map_pos[stage][y][x] = text;
 			chest_pos[stage][y][x] = text;
-			clear_count[stage]++;
-			chest_count++;
+			chest_count[stage]++;
 			x++;
 		}
         else{
@@ -206,9 +215,11 @@ int mapload()
             x++;
         }
     }
-	if (box_count != chest_count){
-		printf("박스의 개수와 보관장소의 개수가 같지 않습니다.\n프로그램을 종료합니다.");
-		return 1;
+	for (int i = 0; i <= 4; i++){
+		if (box_count[i] != chest_count[i]){
+			printf("박스의 개수와 보관장소의 개수가 같지 않습니다.\n프로그램을 종료합니다.");
+			return 1;
+		}
 	}
 
     int fclose(FILE * map);
@@ -218,8 +229,8 @@ int mapload()
 void mapprint()
 {
 	int y_pos, x_pos;
-	for (y_pos = 0; y_pos <= stage_y[0]; y_pos++){
-		for (x_pos = 0; x_pos <= 30; x_pos++){
+	for (y_pos = 0; y_pos <= stage_y[stage_num]; y_pos++){
+		for (x_pos = 0; x_pos <= stage_x[stage_num]; x_pos++){
 			if (map_pos[stage_num][y_pos][x_pos] == '@'){
 				char_x = x_pos;
 				char_y = y_pos;
