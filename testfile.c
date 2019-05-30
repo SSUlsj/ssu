@@ -14,6 +14,7 @@ int char_x, char_y = 0;
 int chest_pos[5][30][30] = {};
 int undo = 5;
 int undo_map[5][30][30] = {};
+int cnt = 0;
 
 char map_pos[5][30][30] = {};
 char text;
@@ -130,16 +131,23 @@ void move()
 					system("clear");
 					continue;
 				}
+			case 'n' :
+				xmv, ymv = 0;
+				stage_num = 0;
+				mapload();
+				cnt = 0;
+				system("clear");
+				break;
 			default :
                 system("clear");
 				continue;
 		}
 		mapload_undo();
 		if (map_pos[stage_num][char_y+ymv][char_x+xmv] == '#')
-			cnt--;
+			;
 		else if (map_pos[stage_num][char_y+ymv][char_x+xmv] == '$'){
 			if ((map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] == '#') || (map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] == '$'))
-				cnt--;
+				;
 			else{
 				map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] = '$';
 				map_pos[stage_num][char_y+ymv][char_x+xmv] = '@';
