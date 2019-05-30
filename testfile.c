@@ -71,10 +71,12 @@ void move()
 			stage_num++;
 			system("clear");
 			cnt = 0;
+			undo = 5;
 			continue;
 		}
 
 		printf("Move Attempts : %d\n",cnt);
+		printf("%d / 5 Undo\n",undo);
 
         input_char = getch();
         switch(input_char){
@@ -133,14 +135,13 @@ void move()
 					continue;
 				}
 			case '5' :
-				xmv, ymv = 0;
 				stage_num = 4;
 				mapload();
 				cnt = 0;
 				system("clear");
-				break;
+				undo_map[0][0][0] = ' ';
+				continue;
 			case 'n' :
-				xmv, ymv = 0;
 				stage_num = 0;
 				mapload();
 				cnt = 0;
@@ -168,6 +169,10 @@ void move()
 			map_pos[stage_num][char_y+ymv][char_x+xmv] = '@';
 		}
 		system("clear");
+		if (stage_num == 5){
+			printf("Congratulation!\n");
+			check = 0;
+		}
 	}
     return;
 }
