@@ -13,6 +13,8 @@ int clear_check = 0;
 int char_x, char_y = 0;
 int chest_pos[5][30][30] = {};
 int undo = 5;
+int undo_map[5][30][30] = {};
+int cnt = 0;
 
 char map_pos[5][30][30] = {};
 char text;
@@ -20,8 +22,10 @@ char user[10];
 
 void username();
 int mapload();
+void mapload_undo();
 void move();
 void mapprint();
+void mapprint_undo();
 void clear();
 
 int getch()
@@ -54,14 +58,14 @@ void move()
     int input_char;
     int cnt=0;
 	int xmv, ymv = 0;
-
+	mapload_undo();
 
     while(check){
 		xmv,ymv = 0;
 
 		printf("Hello %s\n",user);
-        mapprint();
-		
+        
+		mapprint();
 		if (clear_check == chest_count[stage_num]){
 			stage_num++;
 			system("clear");
@@ -115,16 +119,42 @@ void move()
                 check=0;
                 break;
 			case 'u' :
-            
+				if (undo == 0){
+					system("clear");
+					printf("undo 횟수를 모두 사용하셨습니다.\n");
+					continue;
+				}
+				else{
+					mapprint_undo();
+					cnt++;
+					undo--;
+					system("clear");
+					continue;
+				}
+			case '5' :
+				xmv, ymv = 0;
+				stage_num = 4;
+				mapload();
+				cnt = 0;
+				system("clear");
+				break;
+			case 'n' :
+				xmv, ymv = 0;
+				stage_num = 0;
+				mapload();
+				cnt = 0;
+				system("clear");
+				break;
 			default :
                 system("clear");
 				continue;
 		}
+		mapload_undo();
 		if (map_pos[stage_num][char_y+ymv][char_x+xmv] == '#')
-			cnt--;
+			;
 		else if (map_pos[stage_num][char_y+ymv][char_x+xmv] == '$'){
 			if ((map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] == '#') || (map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] == '$'))
-				cnt--;
+				;
 			else{
 				map_pos[stage_num][char_y+ymv*2][char_x+xmv*2] = '$';
 				map_pos[stage_num][char_y+ymv][char_x+xmv] = '@';
@@ -244,6 +274,40 @@ void mapprint()
 		printf("\n");
 	}
 }
+
+void mapload_undo()
+{
+	int y_pos, x_pos;
+    for (y_pos = 0; y_pos <= stage_y[stage_num]; y_pos++){
+        for (x_pos = 0; x_pos <= stage_x[stage_num]; x_pos++){
+			undo_map[4][y_pos][x_pos] = undo_map[3][y_pos][x_pos];
+			undo_map[3][y_pos][x_pos] = undo_map[2][y_pos][x_pos];
+			undo_map[2][y_pos][x_pos] = undo_map[1][y_pos][x_pos];
+			undo_map[1][y_pos][x_pos] = undo_map[0][y_pos][x_pos];
+			undo_map[0][y_pos][x_pos] = map_pos[stage_num][y_pos][x_pos];
+		}
+    }
+}
+
+void mapprint_undo()
+{
+    int y_pos, x_pos;
+
+    for (y_pos = 0; y_pos <= stage_y[stage_num]; y_pos++){
+        for (x_pos = 0; x_pos <= stage_x[stage_num]; x_pos++){
+            if (undo_map[0][0][0] != '.')
+				;
+			else{
+				map_pos[stage_num][y_pos][x_pos] = undo_map[0][y_pos][x_pos];
+				undo_map[0][y_pos][x_pos] = undo_map[1][y_pos][x_pos];
+				undo_map[1][y_pos][x_pos] = undo_map[2][y_pos][x_pos];
+				undo_map[2][y_pos][x_pos] = undo_map[3][y_pos][x_pos];
+				undo_map[3][y_pos][x_pos] = undo_map[4][y_pos][x_pos];
+			}
+		}
+    }
+}
+
 int main()
 {
 	system("clear");
