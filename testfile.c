@@ -62,6 +62,7 @@ void move()
 
     while(check){
 		xmv,ymv = 0;
+		clear_check = 0;
 
 		printf("Hello %s\n",user);
         
@@ -97,7 +98,7 @@ void move()
 				ymv = 0;
                 cnt++;
                 break;
-	    case 'd' :
+	    	case 'd' :
 				xmv, ymv = 0;
                 system("clear");
                 printf("h(왼쪽),j(아래),k(위),l(오른쪽)\n");
@@ -144,7 +145,8 @@ void move()
 				mapload();
 				cnt = 0;
 				system("clear");
-				break;
+				undo_map[0][0][0] = ' ';
+				continue;
 			default :
                 system("clear");
 				continue;
@@ -165,7 +167,6 @@ void move()
 			map_pos[stage_num][char_y][char_x] = '.';
 			map_pos[stage_num][char_y+ymv][char_x+xmv] = '@';
 		}
-		clear_check = 0;
 		system("clear");
 	}
     return;
