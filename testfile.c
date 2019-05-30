@@ -74,6 +74,12 @@ void move()
 			undo = 5;
 			continue;
 		}
+		
+		if (stage_num >= 5){
+			printf("Congratulation!\n");
+			check = 0;
+			break;
+		}
 
 		printf("Move Attempts : %d\n",cnt);
 		printf("%d / 5 Undo\n",undo);
@@ -169,10 +175,6 @@ void move()
 			map_pos[stage_num][char_y+ymv][char_x+xmv] = '@';
 		}
 		system("clear");
-		if (stage_num == 5){
-			printf("Congratulation!\n");
-			check = 0;
-		}
 	}
     return;
 }
