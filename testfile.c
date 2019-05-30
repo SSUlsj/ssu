@@ -131,6 +131,13 @@ void move()
 					system("clear");
 					continue;
 				}
+			case '5' :
+				xmv, ymv = 0;
+				stage_num = 4;
+				mapload();
+				cnt = 0;
+				system("clear");
+				break;
 			case 'n' :
 				xmv, ymv = 0;
 				stage_num = 0;
