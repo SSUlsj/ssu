@@ -93,7 +93,7 @@ void move()
 				ymv = 0;
                 cnt++;
                 break;
-	    	case 'd' :
+	    case 'd' :
 				xmv, ymv = 0;
                 system("clear");
                 printf("h(왼쪽),j(아래),k(위),l(오른쪽)\n");
