@@ -27,6 +27,7 @@ void move();
 void mapprint();
 void mapprint_undo();
 void clear();
+void commandlist();
 
 int getch()
 {
@@ -108,15 +109,7 @@ void move()
                 break;
 	    	case 'd' :
 				xmv, ymv = 0;
-                system("clear");
-                printf("h(왼쪽),j(아래),k(위),l(오른쪽)\n");
-                printf("u(undo)\n");
-                printf("r(replay)\n");
-                printf("n(new)\n");
-                printf("e(exit)\n");
-                printf("f(file load)\n");
-                printf("d(display help)\n");
-                printf("t(top)\n");
+				commandlist();
 				continue;
             case 'r' :
 				xmv, ymv = 0;
@@ -315,6 +308,26 @@ void mapprint_undo()
 		}
     }
 }
+
+void commandlist()
+{
+	 system("clear");
+	 	printf("Hello %s\n",user);
+		printf("\n");
+                printf("h(왼쪽),j(아래),k(위),l(오른쪽)\n");
+                printf("u(undo)\n");
+                printf("r(replay)\n");
+                printf("n(new)\n");
+                printf("e(exit)\n");
+                printf("f(file load)\n");
+                printf("d(display help)\n");
+                printf("t(top)\n");
+
+		if(getch()=='d')
+			system("clear");
+			return;
+}
+
 
 int main()
 {
