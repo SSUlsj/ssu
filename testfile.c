@@ -373,9 +373,13 @@ void commandlist()
                 printf("d(display help)\n");
                 printf("t(top)\n");
 
-		if(getch()=='d')
+		if(getch()=='\n'){
 			system("clear");
 			return;
+		}
+		else
+			return commandlist();
+
 }
 
 
@@ -386,6 +390,6 @@ int main()
 	if (mapload() == 1)
 		return 0;
 	move();
-	printf("S E E  Y O U  %s . . . .\n",user);
+	printf("\nS E E  Y O U  %s . . . .\n",user);
 	return 0;
 }
