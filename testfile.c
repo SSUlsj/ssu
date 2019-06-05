@@ -329,6 +329,8 @@ void filesave()
 			fprintf(save, "%c", map_pos[stage_num][y][x]);
 		fprintf(save,"\n");
 	}
+	fprintf(save,"a");
+
 	fclose(save);
 	return;
 }
@@ -343,7 +345,7 @@ void fileload()
 
 	fscanf(load, "move %d undo %d stage %d\n", &cnt, &undo, &stage_num);
 
-	while (fscanf(load, "%c", &text) != EOF){
+	while (fscanf(load, "%c", &text) != 'a'){
 		if (text == '\n'){
 			y_pos++;
 			x_pos = 0;
