@@ -222,7 +222,7 @@ int mapload()
 			y = -1;
 		}
 		else if((text >= '2')&&(text <= '5')){
-			stage_y[stage] = y+1;
+			stage_y[stage] = y-1;
             stage++;
             x = 0;
             y = -1;
@@ -280,7 +280,10 @@ void mapprint()
 				map_pos[stage_num][y_pos][x_pos] = 'O';
 			if ((map_pos[stage_num][y_pos][x_pos] == '$')&&(chest_pos[stage_num][y_pos][x_pos] == 'O'))
 				clear_check++;
-			printf("%c",map_pos[stage_num][y_pos][x_pos]);
+			if (map_pos[stage_num][y_pos][x_pos] == '.')
+				printf(" ");
+			else 
+				printf("%c",map_pos[stage_num][y_pos][x_pos]);
 		}
 		printf("\n");
 	}
@@ -322,13 +325,24 @@ void mapprint_undo()
 void filesave()
 {
 	FILE * save = fopen("sokoban.txt","w");
-
+	
 	fprintf(save, "move %d undo %d stage %d\n",cnt, undo, stage_num);
 	for (int y = 0; y <= stage_y[stage_num]; y++){
 		for (int x = 0; x <= stage_x[stage_num]; x++)
 			fprintf(save, "%c", map_pos[stage_num][y][x]);
 		fprintf(save,"\n");
 	}
+	fprintf(save,"a");
+	
+	for (int n = 0; n <= 4; n++){
+		for (int y = 0; y <= stage_y[stage_num]; y++){
+			for (int x = 0; x <= stage_x[stage_num]; x++)
+				fprintf(save, "%c", undo_map[n][y][x]);
+			fprintf(save,"\n");
+		}
+		fprintf(save,"a");
+	}
+
 	fclose(save);
 	return;
 }
@@ -337,7 +351,7 @@ void fileload()
 {
 	int x_pos = 0;
 	int y_pos = 0;
-	char text;
+	int n = 0;
 
 	FILE * load = fopen("sokoban.txt","rt");
 
@@ -352,10 +366,30 @@ void fileload()
 			map_pos[stage_num][y_pos][x_pos] = text;
 			x_pos++;
 		}
+		if (text == 'a')
+			break;
 	}
+	
+	x_pos, y_pos = 0;
 
+	while (fscanf(load, "%c", &text) != EOF){
+		if (text == '\n'){
+			y_pos++;
+			x_pos = 0;
+			continue;
+		}
+		if ((text == 'a')){
+			n++;
+			x_pos = 0;
+			y_pos = 0;
+			continue;
+		}
+		else{
+			undo_map[n][y_pos][x_pos] = text;
+			x_pos++;
+		}
+	}
 	fclose(load);
-	return;
 }
 
 
@@ -379,7 +413,6 @@ void commandlist()
 		}
 		else
 			return commandlist();
-
 }
 
 
