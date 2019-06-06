@@ -415,7 +415,6 @@ void commandlist()
 			return commandlist();
 }
 
-
 int main()
 {
 	system("clear");
