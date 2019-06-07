@@ -26,7 +26,6 @@ void mapload_undo(); // undo할때 불러올 맵의 함수
 void move(); // 게임 진행할 때 각종 키 입력을 판단하는 함수
 void mapprint(); // 맵을 출력하는 함수
 void mapprint_undo(); // undo할 때 이전 행동의 맵을 로드하기 위한 함수 
-void clear(); 
 void commandlist(); // 명령어 출력하는 커맨드'd'함수
 void filesave(); // 게임 내용 저장 함수
 void fileload(); // 게임 내용 로드 함수
@@ -281,7 +280,7 @@ void mapprint() // 맵을 출력하는 함수
 			if ((map_pos[stage_num][y_pos][x_pos] == '$')&&(chest_pos[stage_num][y_pos][x_pos] == 'O')) // 현 스테이지의 위치에 $(박스)가 있고 상자가 있는 위치에 O(박스보관장소)가 동시에 있을 떄
 				clear_check++; // 맵을 클리어 하기 위한 조건에 1을 더해줌
 			if ((map_pos[stage_num][y_pos][x_pos] == '.')) // 현 스테이지의 위치가 .(빈공간)일때
-				printf(" "); // 빈 공간으로 출려함
+				printf(" "); // 빈 공간으로 출력함
 			else printf("%c",map_pos[stage_num][y_pos][x_pos]); // 현 스테이지의 위치에 저장된 문자를 출력해줌
 		}
 		printf("\n"); // x좌표가 x축 좌표의 최대값에 도달했을때 한줄 내려줌
