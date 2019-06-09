@@ -1,11 +1,5 @@
-map 1 rank 5
-as 68
-hello 68
-asd 68
-asdf 68
-asdfg 68
-map 2 rank 1
-afsdjkl 90
+map 1 rank 0
+map 2 rank 0
 map 3 rank 0
 map 4 rank 0
 map 5 rank 0

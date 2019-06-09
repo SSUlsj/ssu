@@ -572,32 +572,32 @@ void ranksave()
 				move_rank[stage_num][4-i] = move_rank[stage_num][3-i];
 				strcpy(user_rank[stage_num][4-i],user_rank[stage_num][3-i]);
 			}
-			move_rank[stage_num][5-n] = cnt; // 
-			check_rank = n+1;
+			move_rank[stage_num][5-n] = cnt; // 더 늦은 기록이 낮은 순위가 될 수 있도록 설정
+			check_rank = 5-n;
 			check_stage = stage_num;
 			rank_count[stage_num]++;
 			break;
 		}
-		else if (move_rank[stage_num][n] == 0){
-            move_rank[stage_num][n] = cnt;
+		else if (move_rank[stage_num][n] == 0){ // 해당 무브 횟수 랭킹이 비어있을 경우
+            move_rank[stage_num][n] = cnt; // 그 자리를 바로 채움
             check_rank = n;
             check_stage = stage_num;
             rank_count[stage_num] = n+1;
             break;
         }
-		else if (cnt > move_rank[stage_num][n])
+		else if (cnt > move_rank[stage_num][n]) // 해당 되지 않으면 다시 되돌아간다
 			;
 	}
-	if (rank_count[stage_num] >= 6)
+	if (rank_count[stage_num] >= 6) // 랭킹 목록 수가 6이상이 되지 않도록 설정
 		rank_count[stage_num] = 5;
 
 	for (int j = 0; j <= 4; j++){
 		fprintf(fp, "map %d rank %d\n",j+1,rank_count[j]);
 		for (int k = 0; k <= (rank_count[j]-1); k++){
-			if ((k == check_rank)&&(j == check_stage))
-				fprintf(fp, "%s %d\n", user, move_rank[j][k]);
+			if ((k == check_rank)&&(j == check_stage)) // 변경된 랭킹 항목의 변수가 같으면
+				fprintf(fp, "%s %d\n", user, move_rank[j][k]); // 새로 변경되는 랭킹 항목은user 이름을 새로 입력받음
 			else 
-				fprintf(fp, "%s %d\n", user_rank[j][k], move_rank[j][k]);
+				fprintf(fp, "%s %d\n", user_rank[j][k], move_rank[j][k]); // 나머지 항목들도 저장해줌
 		}
 	}
     
@@ -607,14 +607,14 @@ void ranksave()
 
 void rankload()
 {
-	FILE *fp = fopen("ranking.txt","rt");
-	int number;
+	FILE *fp = fopen("ranking.txt","rt"); // ranking.txt를 읽어옴
+	int number; // 잉여 변수
 
-	if (fp != (NULL))
+	if (fp != (NULL)) // 불러온 파일이 없으면 아무일도 일어나지 않음 (ranksave에서 생성됨)
 		for (int n = 0; n <= 4; n++){
-			fscanf(fp, "map %d rank %d\n", &number, &rank_count[n]);
+			fscanf(fp, "map %d rank %d\n", &number, &rank_count[n]); // 해당 맵의 랭킹 항목이 몇개인지를 가져옴
 			for (int r = 0; r <= (rank_count[n]-1); r++)
-				fscanf(fp,"%s %d\n",&user_rank[n][r], &move_rank[n][r]);
+				fscanf(fp,"%s %d\n",&user_rank[n][r], &move_rank[n][r]); // 해당 랭킹 항목의 user 닉네임, 무브 횟수를 불러옴
 	}
 	
 	fclose(fp);
