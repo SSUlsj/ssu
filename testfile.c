@@ -252,7 +252,7 @@ int mapload() // r 또는 n 을 입력시 박스(box)와 박스 저장 장소(ch
 	                x = 0; // x좌표를 0으로 초기화
 		}
         	else if(text == 'e'){ // tesxt변수에 e(exit)가 들어가 있을 떄
-            		stage_y[stage] = y+1; // ?
+            		stage_y[stage] = y+1; // [stage] 번째 맵의 y축 좌표의 최대값은 y+1
             		break; // while문을 빠져나와 박스의 개수와 박스 보관장소개수를 확인하는 반복문으로 이동
         	}
 		else if(text == '@'){ // text변수에 @(캐릭터)가 들어가 있을 떄
