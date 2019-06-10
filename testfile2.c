@@ -18,6 +18,7 @@ int cnt = 0; // 움직인 횟수 변수
 int move_rank[5][5] = {0};	// 각 스테이지의 순위 별 움직인 횟수 배열
 int rank_count[5] = {0};	// 각 스테이지에 저장된 랭킹 개수 배율
 
+
 char user_rank[5][5][11] = {}; // 각 스테이지의 유저 이름 저장 배열
 char map_pos[5][30][30] = {}; // 모든 문자의 각 맵과 x, y 좌표를 저장 하는 배열 
 char text; // mapload()함수에서 각 문자 하나하나를 임시로 저장하는 변수(임시저장소)
@@ -251,7 +252,7 @@ int mapload() // r 또는 n 을 입력시 박스(box)와 박스 저장 장소(ch
 	                x = 0; // x좌표를 0으로 초기화
 		}
         	else if(text == 'e'){ // tesxt변수에 e(exit)가 들어가 있을 떄
-            		stage_y[stage] = y+1; // [stage] 번째 맵의 y축 좌표의 최대값은 y+1
+            		stage_y[stage] = y+1; // ?
             		break; // while문을 빠져나와 박스의 개수와 박스 보관장소개수를 확인하는 반복문으로 이동
         	}
 		else if(text == '@'){ // text변수에 @(캐릭터)가 들어가 있을 떄
@@ -423,7 +424,6 @@ void commandlist() // 명령어 출력하는 커맨드'd'함수
      printf("f(file load)\n");
      printf("d(display help)\n");
      printf("t(top)\n");
-	 printf("\n Press Any key to resume the game");
 }
 
 void ranklist()

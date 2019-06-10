@@ -18,6 +18,7 @@ int cnt = 0; // 움직인 횟수 변수
 int move_rank[5][5] = {0};	// 각 스테이지의 순위 별 움직인 횟수 배열
 int rank_count[5] = {0};	// 각 스테이지에 저장된 랭킹 개수 배율
 
+
 char user_rank[5][5][11] = {}; // 각 스테이지의 유저 이름 저장 배열
 char map_pos[5][30][30] = {}; // 모든 문자의 각 맵과 x, y 좌표를 저장 하는 배열 
 char text; // mapload()함수에서 각 문자 하나하나를 임시로 저장하는 변수(임시저장소)
@@ -423,7 +424,6 @@ void commandlist() // 명령어 출력하는 커맨드'd'함수
      printf("f(file load)\n");
      printf("d(display help)\n");
      printf("t(top)\n");
-	 printf("\n Press Any key to resume the game");
 }
 
 void ranklist()
